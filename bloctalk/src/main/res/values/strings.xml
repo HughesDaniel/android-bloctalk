@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">BlocTalk</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    // Messaging Schemas
+    <string name="sms_scheme">sms</string>
+    <string name="sms_to_scheme">smsto</string>
+    <string name="mms_scheme">mms</string>
+    <string name="mms_to_scheme">mmsto</string>
+</resources>
