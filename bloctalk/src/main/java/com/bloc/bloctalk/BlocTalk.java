@@ -2,12 +2,18 @@ package com.bloc.bloctalk;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.ContentResolver;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Telephony;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 
 public class BlocTalk extends Activity {
@@ -48,6 +54,8 @@ public class BlocTalk extends Activity {
      */
     public static class PlaceholderFragment extends Fragment {
 
+        private static final String TAG = "WWWWWWWWWWWWWWWWWWWW";
+
         public PlaceholderFragment() {
         }
 
@@ -55,6 +63,54 @@ public class BlocTalk extends Activity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_bloc_talk, container, false);
+
+            ListView listView = (ListView) rootView.findViewById(R.id.listView);
+
+            // Create URI
+            Uri uri = Telephony.Sms.Conversations.CONTENT_URI;
+
+            // projection
+            String[] projection = new String[] { Telephony.Sms.Conversations.ADDRESS,
+                                Telephony.Sms.Conversations.SNIPPET};
+
+            // Get Content Resolver object, which will deal with Content Provider
+            ContentResolver cr = getActivity().getContentResolver();
+
+            // selection
+            String selection = "address = ?";
+
+            // selection args
+            String[] args = {"0006"};
+
+            //
+            Cursor c = cr.query(uri, // uri
+                    projection, // projection
+                    null, // selection
+                    null, // args
+                    null // sort order
+            );
+
+            int total = c.getCount();
+
+/*            SimpleCursorAdapter adapter = new SimpleCursorAdapter(getActivity(), // context
+                    android.R.layout.simple_list_item_2, // layout
+                    c, // cursor
+                    new String[] {"address", "snippet"}, // from
+                    new int[] {android.R.id.text2, android.R.id.text1}, // to
+                    0 // flags
+            );
+
+            listView.setAdapter(adapter)*/;
+
+
+            if (c.moveToFirst()) {
+                for (int i = 0; i < total; i++) {
+                    Log.d(TAG, c.getString(1));
+                    c.moveToNext();
+                }
+            }
+
+
             return rootView;
         }
     }
