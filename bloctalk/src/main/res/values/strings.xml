@@ -10,4 +10,7 @@
     <string name="sms_to_scheme">smsto</string>
     <string name="mms_scheme">mms</string>
     <string name="mms_to_scheme">mmsto</string>
+
+    // Contstants
+    <string name="EXTRA_THREAD_ID">com.bloc.bloctalk.extra.thread_id</string>
 </resources>

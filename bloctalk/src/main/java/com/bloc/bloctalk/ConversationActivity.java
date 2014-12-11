@@ -1,16 +1,11 @@
 package com.bloc.bloctalk;
 
 import android.app.Activity;
-import android.app.Fragment;
-import android.content.Intent;
-import android.content.res.Resources;
-import android.net.Uri;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
+
+import com.bloc.bloctalk.fragments.ConversationFragment;
 
 /**
  * ConversationActivity
@@ -28,16 +23,27 @@ import android.view.ViewGroup;
  */
 public class ConversationActivity extends Activity {
 
+    private static final String TAG = ".ConversationActivity.java";
+
+    private String mThreadId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversation);
+
+        mThreadId = getIntent().getExtras().getString(getString(R.string.EXTRA_THREAD_ID));
+
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
+                    .add(R.id.container2, ConversationFragment.newInstance(mThreadId))
                     .commit();
         }
-        Uri data = getIntent().getData();
+
+
+
+
+/*        Uri data = getIntent().getData();
         if (data != null) {
             Resources resources = getResources();
             String scheme = data.getScheme();
@@ -50,7 +56,7 @@ public class ConversationActivity extends Activity {
             } else if (resources.getString(R.string.mms_to_scheme).equals(scheme)) {
                 // SEND AN MMS WITH RECIPIENT
             }
-        }
+        }*/
     }
 
 
@@ -71,21 +77,5 @@ public class ConversationActivity extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_conversation, container, false);
-            return rootView;
-        }
     }
 }
