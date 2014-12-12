@@ -12,9 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 
 import com.bloc.bloctalk.R;
+import com.bloc.bloctalk.adapters.ConversationAdapter;
 
 /**
  * Created by Daniel on 12/10/2014.
@@ -26,7 +26,7 @@ public class ConversationFragment extends Fragment implements LoaderManager.Load
             "com.bloc.bloctalk.fragments.ConversationFragment.key_thread_id";
 
     String mThreadId;
-    SimpleCursorAdapter mAdapter;
+    ConversationAdapter mAdapter;
 
     public static ConversationFragment newInstance(String threadId) {
         ConversationFragment fragment = new ConversationFragment();
@@ -52,8 +52,8 @@ public class ConversationFragment extends Fragment implements LoaderManager.Load
 
         ListView lv = (ListView) rootView.findViewById(R.id.lv_conversation);
 
-        mAdapter = new SimpleCursorAdapter(getActivity(), R.layout.conversation_row, null,
-                new String[] {Telephony.Sms.BODY}, new int[] {R.id.tv_conversation_body},0);
+        mAdapter = new ConversationAdapter(getActivity(), R.layout.conversation_row, null,
+                new String[] {}, new int[] {}, 0); // empty to and from as I handle that in adapter
 
         lv.setAdapter(mAdapter);
 
@@ -66,7 +66,9 @@ public class ConversationFragment extends Fragment implements LoaderManager.Load
     static final String[] CONVERSATION_PROJECTION = new String[] {
             Telephony.Sms._ID,
             Telephony.Sms.THREAD_ID,
-            Telephony.Sms.BODY
+            Telephony.Sms.TYPE,
+            Telephony.Sms.BODY,
+            Telephony.Sms.DATE,
     };
 
     // Loader callbacks

@@ -6,6 +6,24 @@
         android:id="@+id/tv_conversation_body"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="body"
         android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/tv_conversation_creator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="creator"
+        android:layout_below="@+id/tv_conversation_body"
         android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/tv_conversation_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="date"
+        android:layout_alignTop="@+id/tv_conversation_creator"
+        android:layout_toEndOf="@+id/tv_conversation_creator"
+        android:layout_marginStart="53dp" />
 </RelativeLayout>
