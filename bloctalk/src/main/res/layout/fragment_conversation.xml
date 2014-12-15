@@ -6,5 +6,15 @@
     <ListView
         android:id="@+id/lv_conversation"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="0dp"
+        android:layout_weight=".9"/>
+
+    <EditText
+        android:id="@+id/et_convorsation_compose"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".1"
+        android:hint="@string/create_text"
+        android:inputType="text"
+        android:imeOptions="actionDone"/>
 </LinearLayout>

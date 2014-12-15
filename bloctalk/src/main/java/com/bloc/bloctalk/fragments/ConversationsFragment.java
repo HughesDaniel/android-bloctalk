@@ -23,6 +23,10 @@ public class ConversationsFragment extends ListFragment implements LoaderManager
 
     private static final String TAG = ".ConversationListFragment.java";
 
+    // column constants for our cursor projection
+    private static final int COLUMN_THREAD_ID = 3;
+    private static final int COLUMN_ADDRESS = 1;
+
     SimpleCursorAdapter mAdapter;
 
     @Override
@@ -42,13 +46,15 @@ public class ConversationsFragment extends ListFragment implements LoaderManager
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        // we get the cursor and retrieve the thread_id of the convo clicked
+        // we get the cursor and retrieve the thread_id and address of the convo clicked
         Cursor c = ((SimpleCursorAdapter)l.getAdapter()).getCursor();
         c.moveToPosition(position);
-        String threadId = c.getString(3);
+        String threadId = c.getString(COLUMN_THREAD_ID);
+        String address = c.getString(COLUMN_ADDRESS);
         // Intent that starts new activity to display the clicked on conversation
         Intent i = new Intent(getActivity(), ConversationActivity.class);
         i.putExtra(getString(R.string.EXTRA_THREAD_ID), threadId);
+        i.putExtra(getString(R.string.EXTRA_ADDRESS), address);
         startActivity(i);
 
 

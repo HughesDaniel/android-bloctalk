@@ -26,6 +26,7 @@ public class ConversationActivity extends Activity {
     private static final String TAG = ".ConversationActivity.java";
 
     private String mThreadId;
+    private String mAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +34,11 @@ public class ConversationActivity extends Activity {
         setContentView(R.layout.activity_conversation);
 
         mThreadId = getIntent().getExtras().getString(getString(R.string.EXTRA_THREAD_ID));
+        mAddress = getIntent().getExtras().getString(getString(R.string.EXTRA_ADDRESS));
 
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
-                    .add(R.id.container2, ConversationFragment.newInstance(mThreadId))
+                    .add(R.id.container2, ConversationFragment.newInstance(mThreadId, mAddress))
                     .commit();
         }
 

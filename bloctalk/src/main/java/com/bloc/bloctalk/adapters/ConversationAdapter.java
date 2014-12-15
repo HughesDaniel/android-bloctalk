@@ -21,8 +21,9 @@ public class ConversationAdapter extends SimpleCursorAdapter {
     private static final int COLUMN_ID = 0;
     private static final int COLUMN_THREAD_ID = 1;
     private static final int COLUMN_TYPE = 2;
-    private static final int COLUMN_BODY = 3;
-    private static final int COLUMN_DATE = 4;
+    private static final int COLUMN_ADDRESS = 3;
+    private static final int COLUMN_BODY = 4;
+    private static final int COLUMN_DATE = 5;
 
     // values of the Telephony.Sms.Type constants
     private static final int TYPE_INBOX = 1;

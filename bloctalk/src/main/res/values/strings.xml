@@ -4,6 +4,10 @@
     <string name="app_name">BlocTalk</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="really_long">This is a really long text so that I can see
+    what something looks like when it wraps and test how my padding and margins look. I think
+    this is probably long enough</string>
+    <string name="create_text">Enter message to send</string>
 
     // Messaging Schemas
     <string name="sms_scheme">sms</string>
@@ -13,5 +17,6 @@
 
     // Constants
     <string name="EXTRA_THREAD_ID">com.bloc.bloctalk.extra.thread_id</string>
+    <string name="EXTRA_ADDRESS">com.bloc.bloctalk.extra.address</string>
 
 </resources>

@@ -8,10 +8,15 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Telephony;
+import android.telephony.SmsManager;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.bloc.bloctalk.R;
 import com.bloc.bloctalk.adapters.ConversationAdapter;
@@ -24,14 +29,19 @@ public class ConversationFragment extends Fragment implements LoaderManager.Load
     private static final String TAG = ".ConversationFragment.java";
     private static final String KEY_THREAD_ID =
             "com.bloc.bloctalk.fragments.ConversationFragment.key_thread_id";
+    private static final String KEY_ADDRESS =
+            "com.bloc.bloctalk.fragments.ConversationFragment.key_address";
 
     String mThreadId;
+    String mAddress;
+
     ConversationAdapter mAdapter;
 
-    public static ConversationFragment newInstance(String threadId) {
+    public static ConversationFragment newInstance(String threadId, String address) {
         ConversationFragment fragment = new ConversationFragment();
         Bundle args = new Bundle();
         args.putString(KEY_THREAD_ID, threadId);
+        args.putString(KEY_ADDRESS, address);
         fragment.setArguments(args);
 
         return fragment;
@@ -42,6 +52,7 @@ public class ConversationFragment extends Fragment implements LoaderManager.Load
         super.onCreate(savedInstanceState);
 
         mThreadId = getArguments().getString(KEY_THREAD_ID);
+        mAddress = getArguments().getString(KEY_ADDRESS);
     }
 
     @Override
@@ -59,6 +70,21 @@ public class ConversationFragment extends Fragment implements LoaderManager.Load
 
         getLoaderManager().initLoader(0, null, this);
 
+        final EditText composeText = (EditText) rootView.findViewById(R.id.et_convorsation_compose);
+        composeText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    SmsManager smsManager = SmsManager.getDefault();
+                    smsManager.sendTextMessage(mAddress, null, composeText.getText().toString(),
+                            null, null);
+                    composeText.getText().clear();
+                    return true;
+                }
+                return false;
+            }
+        });
+
         return rootView;
     }
 
@@ -67,6 +93,7 @@ public class ConversationFragment extends Fragment implements LoaderManager.Load
             Telephony.Sms._ID,
             Telephony.Sms.THREAD_ID,
             Telephony.Sms.TYPE,
+            Telephony.Sms.ADDRESS,
             Telephony.Sms.BODY,
             Telephony.Sms.DATE,
     };
